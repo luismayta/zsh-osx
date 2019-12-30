@@ -9,14 +9,6 @@
 #
 osx_package_name=osx
 
-ZSH_OSX_PATH_ROOT=$(dirname "${0}":A)
-
-# shellcheck source=/dev/null
-source "${ZSH_OSX_PATH_ROOT}"/src/helpers/messages.zsh
-
-# shellcheck source=/dev/null
-source "${ZSH_OSX_PATH_ROOT}"/src/helpers/tools.zsh
-
 function osx::dependences {
     message_info "Installing dependences for ${osx_package_name}"
     message_success "Installed dependences for ${osx_package_name}"
