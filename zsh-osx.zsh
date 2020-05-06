@@ -462,7 +462,7 @@ function osx::post_install {
 
 function osx::sync {
     osx::ux
-    osx::apple:
+    osx::appStore
     osx::keyboard
     osx::trackpad
     osx::screen
