@@ -275,37 +275,33 @@ function osx::finder {
 ###############################################################################
 function osx::dock {
 
-    message_info "Wipe all (default) app icons from the Dock"
-    defaults write com.apple.dock persistent-apps -array
-    defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Reminders</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
-    defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Notes</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
-    defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Messages</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
-    defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Calendar</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
-
-    message_info "Setting the icon size of Dock items to 36 pixels for optimal size/screen-realestate"
-    defaults write com.apple.dock tilesize -int 36
-
-    message_info "Speeding up Mission Control animations and grouping windows by application"
-    defaults write com.apple.dock expose-animation-duration -float 0.1
-    defaults write com.apple.dock "expose-group-by-app" -bool true
-
-    message_info "Disable the over-the-top focus ring animation"
-    defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false
-
-    message_info "Set Dock to auto-hide and remove the auto-hiding delay"
-    defaults write com.apple.dock autohide -bool true
-    defaults write com.apple.dock autohide-delay -float 0.05
-    defaults write com.apple.dock autohide-time-modifier -float 0.25
-
-    defaults write com.apple.dock magnification -bool true
-    defaults write com.apple.dock tilesize -int 54
+    message_info "Set the icon size of Dock items to 28->64 pixels with magnification"
+    defaults write com.apple.dock tilesize -int 28
     defaults write com.apple.dock largesize -int 64
-    defaults write com.apple.dock minimize-to-application -bool true
-    defaults write com.apple.dock mineffect -string "scale"
-    defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
-    defaults write com.apple.dock showhidden -bool true
-    defaults write com.apple.dock show-recents -bool false
-    defaults write com.apple.dock show-process-indicators -bool true
+    defaults write com.apple.dock magnification -bool true
+
+    message_info "Show only open applications in the Dock"
+    defaults write com.apple.dock static-only -bool true
+
+    message_info "Wipe all (default) app icons from the Dock"
+    # This is only really useful when setting up a new Mac, or if you don’t use
+    # the Dock to launch apps.
+    defaults write com.apple.dock persistent-apps -array
+
+    message_info "Speed up Mission Control animations"
+    defaults write com.apple.dock expose-animation-duration -float 0.1
+
+    message_info "Disable Dashboard"
+    defaults write com.apple.dashboard mcx-disabled -bool true
+
+    message_info "Don’t show Dashboard as a Space"
+    defaults write com.apple.dock dashboard-in-overlay -bool true
+
+    message_info "Don’t automatically rearrange Spaces based on most recent use"
+    defaults write com.apple.dock mru-spaces -bool false
+
+    message_info "Automatically hide and show the Dock"
+    defaults write com.apple.dock autohide -bool true
 
 }
 
