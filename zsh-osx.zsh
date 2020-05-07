@@ -49,6 +49,16 @@ function osx::ux {
     message_info "Disable Photos.app from starting everytime a device is plugged in"
     defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
+    # Disable auto correct and other substitutions
+    defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+    defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+    defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+    defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+    defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+    # Use Dark Interface
+    defaults write -g AppleInterfaceStyle -string "Dark"
+
 }
 
 ###############################################################################
@@ -143,8 +153,23 @@ function osx::screen {
 # Finder
 ###############################################################################
 function osx::finder {
-    message_info "Show icons for hard drives, servers, and removable media on the desktop"
+    # Hide Finder recent tags
+    defaults write com.apple.finder ShowRecentTags -bool false
+
+    # Use list view in all Finder windows by default
+    defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+
+    # Keep directories at the top when sorting in Finder
+    defaults write com.apple.finder _FXSortFoldersFirst -bool true
+
+    # Finder should search the current directory by default
+    defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+    # Turn on automatic Desktop icons
     defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+    defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
+    defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
+    defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
     message_info "Show hidden files in Finder"
     defaults write com.apple.Finder AppleShowAllFiles -bool true
@@ -157,9 +182,6 @@ function osx::finder {
 
     message_info "Display full POSIX path as Finder window title"
     defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
-
-    message_info "Use column view in all Finder windows by default"
-    defaults write com.apple.finder FXPreferredViewStyle Clmv
 
     message_info "Avoid creation of .DS_Store files on network volumes"
     defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
@@ -178,7 +200,6 @@ function osx::finder {
     defaults write com.apple.finder FinderSpawnTab -bool false
     defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
     defaults write com.apple.finder _FXSortFoldersFirst -bool true
-    defaults write com.apple.finder QLEnableTextSelection -bool TRUE
 
     # Toolbar icons
     defaults write com.apple.finder 'NSToolbar Configuration Browser' '{
@@ -224,29 +245,6 @@ function osx::finder {
     defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
     defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
-    # Show item info near icons on the desktop and in other icon views
-    /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-    /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-    /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-
-    # Show item info to the right of the icons on the desktop
-    /usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom false" ~/Library/Preferences/com.apple.finder.plist
-
-    # Enable snap-to-grid for icons on the desktop and in other icon views
-    /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-    /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-    /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-
-    # Increase grid spacing for icons on the desktop and in other icon views
-    /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-    /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-    /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-
-    # Increase the size of icons on the desktop and in other icon views
-    /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-    /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-    /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-
     # Expand the following File Info panes:
     # “General”, “Open with”, and “Sharing & Permissions”
     defaults write com.apple.finder FXInfoPanesExpanded -dict \
@@ -254,19 +252,11 @@ function osx::finder {
 	           OpenWith -bool true \
 	           Privileges -bool true
 
-    # When performing a search, search the current folder by default
-    defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
-
-    # Show icons for hard drives, servers, and removable media on the desktop
-    defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-    defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
-    defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
-    defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
-    killall Finder
-
     # Show Sidebar, but remove the Tags section.
     defaults write com.apple.finder ShowSidebar -bool true
     defaults write com.apple.finder ShowRecentTags -bool false
+
+    killall Finder
 
 }
 
@@ -414,10 +404,16 @@ function osx::browser {
 # Messages                                                                    #
 ###############################################################################
 function osx::messages {
-
     message_info "Disable smart quotes in Messages.app"
     defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
 
+    # Disable sound effects in Message.app.
+    defaults write com.apple.messageshelper.AlertsController PlaySoundsKey -int 0
+
+    # Disable auto correct and other substitutions in Message.app.
+    defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
+    defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
+    defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 }
 
 ###############################################################################
@@ -436,7 +432,7 @@ function osx::others {
     # Disable the sound effects on boot
     sudo nvram SystemAudioVolume=" "
 
-    defaults write -g AppleShowScrollBars -string "Always"
+    defaults write -g AppleShowScrollBars -string WhenScrolling
     defaults write -g NSWindowResizeTime -float 0.001
 
     # Restart automatically if the computer freezes
