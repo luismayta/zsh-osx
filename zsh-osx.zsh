@@ -465,6 +465,18 @@ function osx::others {
     defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 }
 
+function osx::mail {
+    # Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
+    defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
+
+    # # Disable send and reply animations in Mail.app
+    defaults write com.apple.mail DisableReplyAnimations -bool true
+    defaults write com.apple.mail DisableSendAnimations -bool true
+
+    # # Disable inline attachments (just show the icons)
+    defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
+}
+
 function osx::spotlight {
 
     # Don't display first-time Spotlight messages
@@ -521,6 +533,7 @@ function osx::sync {
     osx::screen
     osx::finder
     osx::dock
+    osx::mail
     osx::spotlight
     osx::automaticUpdates
     osx::missioncontrol
