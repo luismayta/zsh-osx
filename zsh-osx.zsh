@@ -274,36 +274,62 @@ function osx::finder {
 # Dock & Mission Control
 ###############################################################################
 function osx::dock {
+    message_info "Implement settings for dock"
 
-    message_info "Set the icon size of Dock items to 28->64 pixels with magnification"
+    # Automatically hide and show the Dock
+    defaults write com.apple.dock autohide -bool true
+
+    # Show only open applications in the Dock
+    defaults write com.apple.dock static-only -bool true
+
+    # Wipe all (default) app icons from the Dock
+    defaults write com.apple.dock persistent-apps -array
+
+    # Set the icon size of Dock items to 28->64 pixels with magnification
     defaults write com.apple.dock tilesize -int 28
     defaults write com.apple.dock largesize -int 64
     defaults write com.apple.dock magnification -bool true
 
-    message_info "Show only open applications in the Dock"
-    defaults write com.apple.dock static-only -bool true
-
-    message_info "Wipe all (default) app icons from the Dock"
-    # This is only really useful when setting up a new Mac, or if you don’t use
-    # the Dock to launch apps.
-    defaults write com.apple.dock persistent-apps -array
-
-    message_info "Speed up Mission Control animations"
+    # Speed up Mission Control animations
     defaults write com.apple.dock expose-animation-duration -float 0.1
 
-    message_info "Disable Dashboard"
+    # Disable Dashboard
     defaults write com.apple.dashboard mcx-disabled -bool true
 
-    message_info "Don’t show Dashboard as a Space"
+    # Don’t show Dashboard as a Space
     defaults write com.apple.dock dashboard-in-overlay -bool true
 
-    message_info "Don’t automatically rearrange Spaces based on most recent use"
+    # Don’t automatically rearrange Spaces based on most recent use
     defaults write com.apple.dock mru-spaces -bool false
 
-    message_info "Automatically hide and show the Dock"
-    defaults write com.apple.dock autohide -bool true
+    # Top-right hot corner + cmd turns on screen saver
+    defaults write com.apple.dock wvous-tr-corner -int 5 # start screen saver
+    defaults write com.apple.dock wvous-tr-modifier -int 1048576 # cmd key
+
+    # Bottom-right hot corner + cmd disables screen saver
+    defaults write com.apple.dock wvous-br-corner -int 6 # disable screen saver
+    defaults write com.apple.dock wvous-br-modifier -int 1048576 # cmd key
+
+    # Require password 5 seconds after sleep or screen saver begins
+    defaults write com.apple.screensaver askForPassword -int 1
+    defaults write com.apple.screensaver askForPasswordDelay -int 5
+
+    message_success "Settings dock"
 
 }
+
+function osx::automaticUpdates {
+    message_info "Implement automatic updates"
+    # Automatic updates
+    sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate.plist AutomaticallyInstallMacOSUpdates -bool true
+    sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate.plist AutomaticCheckEnabled -bool true
+    sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate.plist AutomaticDownload -bool true
+    sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate.plist ConfigDataInstall -bool true
+    sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate.plist CriticalUpdateInstall -bool true
+    sudo defaults write /Library/Preferences/com.apple.commerce.plist AutoUpdate -bool true
+    message_success "Implemented automatic updates"
+}
+
 
 ###############################################################################
 # 🎛 Mission Control
@@ -439,6 +465,37 @@ function osx::others {
     defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 }
 
+function osx::spotlight {
+
+    # Don't display first-time Spotlight messages
+    defaults write com.apple.spotlight showedFTE 1
+    defaults write com.apple.spotlight showedLearnMore 1
+
+    # # Spotlight autocomplete sources
+    defaults write com.apple.spotlight orderedItems -array \
+             '{"enabled" = 1;"name" = "APPLICATIONS";}' \
+             '{"enabled" = 1;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}' \
+             '{"enabled" = 1;"name" = "MENU_CONVERSION";}' \
+             '{"enabled" = 1;"name" = "MENU_EXPRESSION";}' \
+             '{"enabled" = 1;"name" = "MENU_DEFINITION";}' \
+             '{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
+             '{"enabled" = 0;"name" = "MESSAGES";}' \
+             '{"enabled" = 0;"name" = "DOCUMENTS";}' \
+             '{"enabled" = 0;"name" = "DIRECTORIES";}' \
+             '{"enabled" = 0;"name" = "PRESENTATIONS";}' \
+             '{"enabled" = 0;"name" = "SPREADSHEETS";}' \
+             '{"enabled" = 0;"name" = "PDF";}' \
+             '{"enabled" = 0;"name" = "MESSAGES";}' \
+             '{"enabled" = 0;"name" = "CONTACT";}' \
+             '{"enabled" = 0;"name" = "EVENT_TODO";}' \
+             '{"enabled" = 0;"name" = "IMAGES";}' \
+             '{"enabled" = 0;"name" = "BOOKMARKS";}' \
+             '{"enabled" = 0;"name" = "MUSIC";}' \
+             '{"enabled" = 0;"name" = "MOVIES";}' \
+             '{"enabled" = 0;"name" = "FONTS";}' \
+             '{"enabled" = 0;"name" = "MENU_OTHER";}'
+
+}
 
 function osx::packages {
     message_info "Install packages for ${osx_package_name}"
@@ -464,6 +521,8 @@ function osx::sync {
     osx::screen
     osx::finder
     osx::dock
+    osx::spotlight
+    osx::automaticUpdates
     osx::missioncontrol
     osx::browser
     osx::messages
