@@ -1,8 +1,9 @@
 #
-# See ./CONTRIBUTING.rst
+# See ./docs/contributing.md
 #
 
 OS := $(shell uname)
+
 .PHONY: help
 .DEFAULT_GOAL := help
 
@@ -17,76 +18,73 @@ else
 	PIPENV_INSTALL:=
 endif
 
-TEAM := luismayta
+TEAM := hadenlabs
 REPOSITORY_DOMAIN:=github.com
 REPOSITORY_OWNER:=${TEAM}
 AWS_VAULT ?= ${TEAM}
-KEYBASE_OWNER ?= ${TEAM}
-KEYBASE_PATH_TEAM_NAME ?=private
 PROJECT := zsh-osx
-PROJECT_PORT := 3000
 
 PYTHON_VERSION=3.8.0
-NODE_VERSION=12.14.1
-TERRAFORM_VERSION=0.12.25
+NODE_VERSION=14.16.1
 PYENV_NAME="${PROJECT}"
+GIT_IGNORES:=python,node,go,zsh
+GI:=gi
+
+# issues reviewers
+REVIEWERS?=luismayta
 
 # Configuration.
 SHELL ?=/bin/bash
 ROOT_DIR=$(shell pwd)
 MESSAGE:=🍺️
-MESSAGE_HAPPY:="Done! ${MESSAGE}, Now Happy Hacking"
-SOURCE_DIR=$(ROOT_DIR)/
+MESSAGE_HAPPY?:="Done! ${MESSAGE}, Now Happy Hacking"
+SOURCE_DIR=$(ROOT_DIR)
 PROVISION_DIR:=$(ROOT_DIR)/provision
-FILE_README:=$(ROOT_DIR)/README.rst
-KEYBASE_VOLUME_PATH ?= /Keybase
-KEYBASE_TEAM_PATH ?=${KEYBASE_VOLUME_PATH}/${KEYBASE_PATH_TEAM_NAME}/${KEYBASE_OWNER}
-KEYBASE_PROJECT_PATH ?= ${KEYBASE_TEAM_PATH}/${REPOSITORY_DOMAIN}/${REPOSITORY_OWNER}/${PROJECT}
+DOCS_DIR:=$(ROOT_DIR)/docs
+README_TEMPLATE:=$(PROVISION_DIR)/templates/README.tpl.md
 
-PATH_DOCKER_COMPOSE:=docker-compose.yml -f provision/docker-compose
+export README_FILE ?= README.md
+export README_YAML ?= provision/generators/README.yaml
+export README_INCLUDES ?= $(file://$(shell pwd)/?type=text/plain)
 
-DOCKER_SERVICE_DEV:=app
-DOCKER_SERVICE_TEST:=app
-
-docker-compose:=$(PIPENV_RUN) docker-compose
-
-docker-test:=$(docker-compose) -f ${PATH_DOCKER_COMPOSE}/test.yml
-docker-dev:=$(docker-compose) -f ${PATH_DOCKER_COMPOSE}/dev.yml
-
-docker-test-run:=$(docker-test) run --rm ${DOCKER_SERVICE_TEST}
-docker-dev-run:=$(docker-dev) run --rm --service-ports ${DOCKER_SERVICE_DEV}
-
-terragrunt:=terragrunt
+FILE_README:=$(ROOT_DIR)/README.md
 
 include provision/make/*.mk
 
+## Display help for all targets
+.PHONY: help
 help:
 	@echo '${MESSAGE} Makefile for ${PROJECT}'
 	@echo ''
-	@echo 'Usage:'
-	@echo '    environment               create environment with pyenv'
-	@echo '    setup                     install requirements'
-	@echo ''
-	@make docker.help
-	@make docs.help
-	@make test.help
-	@make keybase.help
-	@make utils.help
+	@awk '/^.PHONY: / { \
+		msg = match(lastLine, /^## /); \
+			if (msg) { \
+				cmd = substr($$0, 9, 100); \
+				msg = substr(lastLine, 4, 1000); \
+				printf "  ${GREEN}%-30s${RESET} %s\n", cmd, msg; \
+			} \
+	} \
+	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
+## Create README.md by building it from README.yaml
+.PHONY: readme
+readme:
+	@gomplate --file $(README_TEMPLATE) \
+		--out $(README_FILE)
+
+## setup dependences of project
+.PHONY: setup
 setup:
-	@echo "=====> install packages..."
-	pyenv local ${PYTHON_VERSION}
-	yarn
-	$(PIPENV_INSTALL) --dev --skip-lock
-	$(PIPENV_RUN) pre-commit install
-	$(PIPENV_RUN) pre-commit install -t pre-push
-	@cp -rf provision/git/hooks/prepare-commit-msg .git/hooks/
+	@echo "==> install packages..."
+	make python.setup
+	make python.precommit
 	@[ -e ".env" ] || cp -rf .env.example .env
+	make git.setup
 	@echo ${MESSAGE_HAPPY}
 
+## setup environment of project
+.PHONY: environment
 environment:
-	@echo "=====> loading virtualenv ${PYENV_NAME}..."
-	pyenv local ${PYTHON_VERSION}
-	make keybase.setup
-	@pipenv --venv || $(PIPENV_INSTALL) --python=${PYTHON_VERSION} --skip-lock
+	@echo "==> loading virtualenv ${PYENV_NAME}..."
+	make python.environment
 	@echo ${MESSAGE_HAPPY}
