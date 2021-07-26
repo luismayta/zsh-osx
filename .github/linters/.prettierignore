@@ -1,0 +1,17 @@
+.next
+.serverless
+.serverless_nextjs
+node_modules
+dist
+package.json
+package-lock.json
+coverage
+.mypy_cache/
+.build
+.terraform
+terraform.md
+*.tpl.md
+*.enc.yaml
+vendor
+out
+.vscode-test
