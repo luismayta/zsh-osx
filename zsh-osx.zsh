@@ -21,6 +21,10 @@ function osx::dependences {
 
 function osx::ux {
 
+    message_info "Settings menu extra"
+    # Show battery percentage
+    defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+
     message_info "Expanding the save panel by default"
     defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
     defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
@@ -124,6 +128,23 @@ function osx::trackpad {
 
     message_info "Turn off keyboard illumination when computer is not used for 5 minutes"
     defaults write com.apple.BezelServices kDimTime -int 300
+
+    # start here
+    # Trackpad: enable tap to click for this user and for the login screen
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+    defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+    defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+    # Trackpad: map bottom right corner to right-click
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+    defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
+    defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
+
+    # Trackpad: swipe between pages with three fingers
+    defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true
+    defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerHorizSwipeGesture -int 1
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 1
 
 }
 
@@ -282,6 +303,8 @@ function osx::dock {
 
     # Speed up Mission Control animations
     defaults write com.apple.dock expose-animation-duration -float 0.1
+
+    defaults write com.apple.dock orientation -string "left"
 
     # Disable Dashboard
     defaults write com.apple.dashboard mcx-disabled -bool true
