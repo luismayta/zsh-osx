@@ -215,11 +215,11 @@
         },
         "bridgecrew": {
             "hashes": [
-                "sha256:700d97b414ff38a346b14c785900da9dd2a6d28a3158250ed99bb6a4d73b3c83",
-                "sha256:fc67015e1ba8d415b676f9b3a6d6a9b56a73570733f2cd482675fcb9bb5da6b8"
+                "sha256:7346e836909ba829d4a283b68c1456a7a9ad286305cc64f743b26ae200bd1dfe",
+                "sha256:e31d74c8d76a8efa5c7d11fa997b76ecfdf6078f71582f6e900fa9171d0516ba"
             ],
             "index": "pypi",
-            "version": "==2.2.246"
+            "version": "==2.2.247"
         },
         "bump2version": {
             "hashes": [
@@ -347,11 +347,11 @@
         },
         "checkov": {
             "hashes": [
-                "sha256:3daf53542911a1e8abd45006a874fcc93ce40598f091a602b3b6ab0142e085d5",
-                "sha256:8cb4b54162ccc2a69bc1f78deb23eb65fbce81f8aae7067f081e6ec852c20263"
+                "sha256:5dc022e16d91beee7bcfe203ce2bb7331ac3fbadad4efc145509e0c1c3adfe6f",
+                "sha256:b20f8a2dbb69e37b1f1292bb862c1db4ac390efc2e145b06a64aca74427d91da"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==2.2.246"
+            "version": "==2.2.247"
         },
         "click": {
             "hashes": [
