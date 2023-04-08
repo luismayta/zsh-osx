@@ -11,10 +11,10 @@ email:
   support: support@hadenlabs.com
 
 # Logo for this project
-#logo: docs/logo.png
+# logo: docs/logo.png
 
 # License of this project
-license: 'LGPL-3.0'
+license: "LGPL-3.0"
 
 # Canonical GitHub repo
 github_repo: luismayta/zsh-osx
@@ -26,19 +26,22 @@ badges:
     url: https://github.com/luismayta/zsh-osx/releases
   - name: Lint
     image: https://img.shields.io/github/workflow/status/luismayta/zsh-osx/lint-code
-    url: https://github.com/luismayta/zsh-osx/actions
-  - name: Issues
-    image: https://img.shields.io/github/issues/luismayta/zsh-osx
-    url: https://github.com/luismayta/zsh-osx/issues
+    url: https://github.com/luismayta/zsh-osx/actions?workflow=lint-code
+  - name: CI
+    image: https://img.shields.io/github/workflow/status/luismayta/zsh-osx/ci
+    url: https://github.com/luismayta/zsh-osx/actions?workflow=ci
+  - name: Test
+    image: https://img.shields.io/github/workflow/status/luismayta/zsh-osx/test
+    url: https://github.com/luismayta/zsh-osx/actions?workflow=test
+  - name: pre-commit
+    image: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+    url: https://github.com/pre-commit/pre-commit
   - name: Conventional Commits
     image: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow
     url: https://conventionalcommits.org
   - name: KeepAChangelog
-    image: https://img.shields.io/badge/Keep%20A%20Changelog-1.0.0-%23E05735
+    image: https://img.shields.io/badge/changelog-Keep%20a%20Changelog%20v1.0.0-orange
     url: https://keepachangelog.com
-  - name: Beacon
-    image: https://ga-beacon.appspot.com/G-MZEK48EGE8/zsh-osx/readme
-    url: https://github.com/luismayta/zsh-osx
 
 # Short description of this project
 description: |-
@@ -48,12 +51,21 @@ requirements: |-
 
   This is a list of plugins that need to be installed previously to enjoy all the goodies of this configuration:
 
-  * [zsh-core](https://github.com/hadenlabs/zsh-core)
+  - [zsh-core](https://github.com/hadenlabs/zsh-core)
+  - [gomplate](https://github.com/hairyhenderson/gomplate)
+  - [python](https://www.python.org)
+  - [taskfile](https://github.com/go-task/task)
 
 installation:
-  - 'docs/include/installation/oh-my-zsh.md'
-  - 'docs/include/installation/antigen.md'
-  - 'docs/include/installation/antibody.md'
+  - "docs/include/installation/oh-my-zsh.md"
+  - "docs/include/installation/antigen.md"
+  - "docs/include/installation/antibody.md"
 
 include:
-  - 'docs/functions.md'
+  - "docs/functions.md"
+
+usages:
+  - docs/usage.md
+
+examples:
+  - "docs/examples/common.md"
