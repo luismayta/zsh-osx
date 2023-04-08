@@ -50,7 +50,7 @@ function osx::ux {
     defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
     defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
-    message_info "Disable Photos.app from starting everytime a device is plugged in"
+    message_info "Disable Photos.app from starting every time a device is plugged in"
     defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
     # Disable auto correct and other substitutions
@@ -304,7 +304,7 @@ function osx::dock {
     # Speed up Mission Control animations
     defaults write com.apple.dock expose-animation-duration -float 0.1
 
-    defaults write com.apple.dock orientation -string "left"
+    defaults write com.apple.dock orientation -string "right"
 
     # Disable Dashboard
     defaults write com.apple.dashboard mcx-disabled -bool true
