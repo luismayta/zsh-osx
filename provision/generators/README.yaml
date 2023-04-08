@@ -57,12 +57,12 @@ requirements: |-
   - [taskfile](https://github.com/go-task/task)
 
 installation:
-  - 'docs/include/installation/oh-my-zsh.md'
-  - 'docs/include/installation/antigen.md'
-  - 'docs/include/installation/antibody.md'
+  - "docs/include/installation/oh-my-zsh.md"
+  - "docs/include/installation/antigen.md"
+  - "docs/include/installation/antibody.md"
 
 include:
-  - 'docs/functions.md'
+  - "docs/functions.md"
 
 usages:
   - docs/usage.md
