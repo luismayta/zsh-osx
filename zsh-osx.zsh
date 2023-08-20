@@ -86,26 +86,54 @@ function osx::appStore {
 # ⌨️ Keyboard
 ###############################################################################
 function osx::keyboard {
-    defaults write -g KeyRepeat -int 3
-    defaults write -g InitialKeyRepeat -int 15
+  defaults write -g KeyRepeat -int 3
+  defaults write -g InitialKeyRepeat -int 15
 
-    # Disable press-and-hold for keys in favour of key repeat
-    defaults write -g ApplePressAndHoldEnabled -bool true
+  # Shortcut to maximize window
+  defaults write -g NSUserKeyEquivalents -dict-add "Zoom" -string "@~^f"
 
-    # Shortcut to maximize window
-    defaults write -g NSUserKeyEquivalents -dict-add "Zoom" -string "@~^f"
+  # Disable automatic modifications of entered text
+  defaults write -g NSAutomaticCapitalizationEnabled -bool false
+  defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
+  defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
+  defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
+  defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 
-    # Disable automatic modifications of entered text
-    defaults write -g NSAutomaticCapitalizationEnabled -bool false
-    defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
-    defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
-    defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
-    defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
+  # Enable full keyboard access for all controls
+  # (e.g. enable Tab in modal dialogs)
+  defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
-    # Enable full keyboard access for all controls
-    # (e.g. enable Tab in modal dialogs)
-    defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+  osx::vim::keyboard
+}
 
+###############################################################################
+# ⌨️ Keyboard Vim
+###############################################################################
+function osx::vim::keyboard {
+
+  # Disable press-and-hold for keys in favour of key repeat
+  defaults write -g ApplePressAndHoldEnabled -bool true
+
+  defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+  defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false              # For VS Code
+  defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false      # For VS Code Insider
+  defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false         # For VS Codium
+  defaults write com.microsoft.VSCodeExploration ApplePressAndHoldEnabled -bool false   # For VS Codium Exploration users
+
+  defaults write com.jetbrains.WebStorm ApplePressAndHoldEnabled -bool false
+
+  defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false
+
+  defaults write com.jetbrains.intellij.ce ApplePressAndHoldEnabled -bool false
+
+  defaults write com.googlecode.iterm2 ApplePressAndHoldEnabled -bool false
+
+  defaults write com.insomnia.app ApplePressAndHoldEnabled -bool false
+
+  defaults write com.brave.Browser ApplePressAndHoldEnabled -bool false
+
+  defaults delete -g ApplePressAndHoldEnabled || true
 }
 
 ################################################################################
