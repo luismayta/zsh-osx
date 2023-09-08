@@ -137,6 +137,9 @@ function osx::vim::keyboard {
   # brave
   defaults write com.brave.Browser ApplePressAndHoldEnabled -bool false
 
+  # android studio
+  defaults write com.google.android.studio ApplePressAndHoldEnabled -bool false
+
   defaults delete -g ApplePressAndHoldEnabled || true
 }
 
