@@ -121,16 +121,20 @@ function osx::vim::keyboard {
   defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false         # For VS Codium
   defaults write com.microsoft.VSCodeExploration ApplePressAndHoldEnabled -bool false   # For VS Codium Exploration users
 
+  # WebStorm
   defaults write com.jetbrains.WebStorm ApplePressAndHoldEnabled -bool false
 
+  # intellij
   defaults write com.jetbrains.intellij ApplePressAndHoldEnabled -bool false
-
   defaults write com.jetbrains.intellij.ce ApplePressAndHoldEnabled -bool false
 
+  # iterm2
   defaults write com.googlecode.iterm2 ApplePressAndHoldEnabled -bool false
 
+  # insomnia
   defaults write com.insomnia.app ApplePressAndHoldEnabled -bool false
 
+  # brave
   defaults write com.brave.Browser ApplePressAndHoldEnabled -bool false
 
   defaults delete -g ApplePressAndHoldEnabled || true
