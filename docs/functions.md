@@ -1,7 +1,8 @@
+<!-- Space: Projects -->
+<!-- Parent: ZshOsx -->
+<!-- Title: Functions ZshOsx -->
+<!-- Label: Functions -->
+<!-- Include: docs/disclaimer.md -->
+<!-- Include: ac:toc -->
+
 ## Functions
-
-zsh slack includes a small utility `slack` to fetch and install new packages.
-
-#### `slack::install`
-
-Install slack.

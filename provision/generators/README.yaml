@@ -61,11 +61,11 @@ installation:
   - "docs/include/installation/antigen.md"
   - "docs/include/installation/antibody.md"
 
-include:
-  - "docs/functions.md"
-
 usages:
   - docs/usage.md
+
+include:
+  - "docs/functions.md"
 
 examples:
   - "docs/examples/common.md"

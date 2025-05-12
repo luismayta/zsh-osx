@@ -43,35 +43,35 @@ This is a list of plugins that need to be installed previously to enjoy all the 
 
 If you're using [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh), install this plugin by doing the following:
 
-1. Go to your oh-my-zsh custom plugins directory -`cd ~/.oh-my-zsh/custom/plugins`
-2. Clone the plugin `bash git clone https://github.com/luismayta/zsh-osx`bash
-3. Edit your `.zshrc` and add `plugins=( ... zsh-osx )` to your list of plugins
-4. Open a new terminal and enjoy!
-   <!-- Space: Projects -->
-   <!-- Parent: Installation ZshOSX -->
-   <!-- Title: Installation Antigen ZshOSX -->
-   <!-- Label: ZshOSX -->
-   <!-- Label: Project -->
-   <!-- Label: Installation -->
-   <!-- Label: Antigen -->
-   <!-- Include: docs/disclaimer.md -->
-   <!-- Include: ac:toc -->
+1.  Go to your oh-my-zsh custom plugins directory -`cd ~/.oh-my-zsh/custom/plugins`
+2.  Clone the plugin `bash git clone https://github.com/luismayta/zsh-osx`bash
+3.  Edit your `.zshrc` and add `plugins=( ... zsh-osx )` to your list of plugins
+4.  Open a new terminal and enjoy!
+    <!-- Space: Projects -->
+    <!-- Parent: Installation ZshOSX -->
+    <!-- Title: Installation Antigen ZshOSX -->
+    <!-- Label: ZshOSX -->
+    <!-- Label: Project -->
+    <!-- Label: Installation -->
+    <!-- Label: Antigen -->
+    <!-- Include: docs/disclaimer.md -->
+    <!-- Include: ac:toc -->
 
 ### [antigen](https://github.com/zsh-users/antigen) users
 
 If you're using [Antigen](https://github.com/zsh-users/antigen), install this plugin by doing the following:
 
-1. Add `antigen bundle luismayta/zsh-osx` to your `.zshrc` where you're adding your other plugins.
-2. Either open a new terminal to force zsh to load the new plugin, or run `antigen bundle luismayta/zsh-osx` in a running zsh session.
-3. Enjoy!
-   <!-- Space: Projects -->
-   <!-- Parent: Installation ZshOSX -->
-   <!-- Title: Installation Antibody ZshOSX -->
-   <!-- Label: ZshOSX -->
-   <!-- Label: Project -->
-   <!-- Label: Installation -->
-   <!-- Include: docs/disclaimer.md -->
-   <!-- Include: ac:toc -->
+1.  Add `antigen bundle luismayta/zsh-osx` to your `.zshrc` where you're adding your other plugins.
+2.  Either open a new terminal to force zsh to load the new plugin, or run `antigen bundle luismayta/zsh-osx` in a running zsh session.
+3.  Enjoy!
+    <!-- Space: Projects -->
+    <!-- Parent: Installation ZshOSX -->
+    <!-- Title: Installation Antibody ZshOSX -->
+    <!-- Label: ZshOSX -->
+    <!-- Label: Project -->
+    <!-- Label: Installation -->
+    <!-- Include: docs/disclaimer.md -->
+    <!-- Include: ac:toc -->
 
 ### [antibody](https://github.com/getantibody/antibody) users
 
@@ -80,7 +80,7 @@ If you're using [Antibody](https://github.com/getantibody/antibody), install thi
 1. Add :
 
 ```{.sourceCode .bash}
-     antibody bundle luismayta/zsh-osx
+antibody bundle luismayta/zsh-osx
 ```
 
 to your `.zshrc` where you're adding your other plugins.
@@ -90,7 +90,7 @@ to your `.zshrc` where you're adding your other plugins.
 
 ## Usage
 
-# How to use this project
+# 🚀 How to use this project
 
 ```bash
 task setup
@@ -105,15 +105,22 @@ task setup
 <!-- Include: ./../disclaimer.md -->
 <!-- Include: ac:toc -->
 
-### Common
+## Common
+
+### Install Dependencies
+
+```bash
+task setup
+```
+
+ <!-- Space: Projects -->
+<!-- Parent: ZshOsx -->
+<!-- Title: Functions ZshOsx -->
+<!-- Label: Functions -->
+<!-- Include: docs/disclaimer.md -->
+<!-- Include: ac:toc -->
 
 ## Functions
-
-zsh slack includes a small utility `slack` to fetch and install new packages.
-
-#### `slack::install`
-
-Install slack.
 
 ## Help
 
@@ -142,7 +149,7 @@ Using the given version number of `MAJOR.MINOR.PATCH`, we apply the following co
 
 ## Copyright
 
-Copyright © 2018-2023 [Hadenlabs](https://hadenlabs.com)
+Copyright © 2018-2025 [Hadenlabs](https://hadenlabs.com)
 
 ## Trademarks
 
